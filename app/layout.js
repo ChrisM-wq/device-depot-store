@@ -1,7 +1,21 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import { createGlobalStyle } from "styled-components"
+
+// @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+
+
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+
+const GlobalStyles = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');   
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+`;
 
 export const metadata = {
   title: 'Create Next App',
@@ -11,7 +25,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <GlobalStyles />
+      <body>{children}</body>
     </html>
   )
 }
