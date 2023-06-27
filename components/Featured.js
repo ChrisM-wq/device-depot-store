@@ -1,6 +1,6 @@
 "use client";
 
-import Image from 'next/image';
+import Image from "next/image";
 import styled from "styled-components";
 import Center from "@/components/Center";
 import Button from './Button';
@@ -14,6 +14,7 @@ const Bg = styled.div`
 const Title = styled.h1`
     margin: 0;
     font-weight: normal;
+    font-size: 3rem;
 `;
 
 const Desc = styled.p`
@@ -48,6 +49,7 @@ const FixedWidthDiv = styled.div`
 const ButtonsWrapper = styled.div`
     display: flex;
     gap: 1em;
+    margin-top: 25px;
 `;
 
 export default function Featured() {
@@ -77,11 +79,10 @@ export default function Featured() {
                     <Column>
                     <FixedWidthDiv >
                         <StyledImage 
-                            layout="responsive"
-                            objectFit="cover"
                             src={'/../public/macbook.png'}
                             width="656" 
                             height="380"
+                            layout="responsive"
                         />
                     </FixedWidthDiv>
                     

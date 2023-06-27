@@ -7,6 +7,7 @@ const StyledButton = styled.button`
     cursor: pointer;
     box-sizing: border-box;
     display: inline-flex;
+    align-items: center;
     svg{
         height: 16px;
         margin-right: 5px;
