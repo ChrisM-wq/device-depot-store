@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15em;
+    padding: 0 3em;
     height: 60px;
     position: -webkit-sticky; /* Safari */
     position: sticky;
