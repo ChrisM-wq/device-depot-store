@@ -3,7 +3,7 @@
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-    padding: 1em 2em;
+    padding: 1em 10%;
 `;
 
 export default function Center({ children }) {
