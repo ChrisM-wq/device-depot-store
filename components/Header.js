@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-import Image from 'next/image';
+import Image from "next/image";
 
 //#7315e5
 const StyledHeader = styled.header`
@@ -52,7 +52,15 @@ export default function Header() {
             <StyledNav>
 
                 <StyledDefault>
-                    <Link href={'/'}><Image src="/../public/logo-white.png" alt="me" width="56" height="32" /></Link>
+                    <Link href={'/'}><Image
+                        src="/../public/logo-white.png"
+                        alt="me"
+                        width="56"
+                        height="32"
+                        style={{
+                            maxWidth: "100%",
+                            height: "auto"
+                        }} /></Link>
                     <StyledLinks href={'/'}>Home</StyledLinks>
                     <StyledLinks href={'/products'}>Products</StyledLinks>
                     <StyledLinks href={'/categories'}>Categories</StyledLinks>
