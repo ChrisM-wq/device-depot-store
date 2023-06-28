@@ -19,12 +19,12 @@ const Title = styled.h1`
 
 const Desc = styled.p`
     color: #bbb;
-    font-size: .8rem;
+    font-size: .9rem;
 `;
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: .8fr 1.2fr;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
     align-items: center;
 `;
@@ -52,17 +52,15 @@ const ButtonsWrapper = styled.div`
     margin-top: 25px;
 `;
 
-export default function Featured() {
+export default function Featured({ product }) {
     return (
         <Bg>
             <Center>
                 <Wrapper>
                     <Column>
                     <div>
-                        <Title>Pro anywhere</Title>
-                        <Desc>
-                        Since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        </Desc>
+                        <Title>{product?.title}</Title>
+                        <Desc>{product?.description}</Desc>
                         <ButtonsWrapper>
                             <Button white outline size="l">Read more</Button>
                             <Button primary size="l">
@@ -80,8 +78,10 @@ export default function Featured() {
                     <FixedWidthDiv >
                         <StyledImage 
                             src={'/../public/macbook.png'}
+                            alt=""
                             width="656" 
                             height="380"
+                            priority={true}
                             layout="responsive"
                         />
                     </FixedWidthDiv>
