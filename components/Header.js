@@ -5,6 +5,7 @@ import {useContext, useState} from "react";
 import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 
+
 //#7315e5
 const StyledHeader = styled.header`
     background-color: #26282a;
@@ -76,13 +77,6 @@ const StyledLinks = styled(Link)`
     }
 `;
 
-const StyledBar = styled.div`
-    background-color: #7315e5;
-    width: 100%;
-    height: 40px;
-`;
-
-
 const NavLink = styled(Link)`
   display: block;
   color:#bbb;
@@ -112,7 +106,6 @@ export default function Header() {
     const [mobileNavActive,setMobileNavActive] = useState(false);
     return (
         <>
-        <StyledBar />
         <StyledHeader>
            
             <StyledNav>
