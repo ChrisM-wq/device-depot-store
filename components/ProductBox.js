@@ -12,7 +12,7 @@ const ProductWrapper = styled.div`
 const WhiteBox = styled(Link)`
   background-color: #fff;
   padding: 20px;
-  height: 120px;
+  height: 160px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@ const WhiteBox = styled(Link)`
   border-radius: 10px;
   img{
     max-width: 100%;
-    max-height: 80px;
+    max-height: 160px;
   }
 `;
 
@@ -61,11 +61,14 @@ const Price = styled.div`
 export default function ProductBox({_id,title,description,price,images}) {
   const {addProduct} = useContext(CartContext);
   const url = '/product/'+_id;
+  console.log(images)
+  const link = "https://drive.google.com/uc?export=view&id=10BjmVe-5y7nK7FzexJlTNwZHLxBGKaBB";
+  //"https://lh3.googleusercontent.com/drive-viewer/AFGJ81qxhQEstBs-WqKzQaiTU48lrL5nTL3fLDkKSz53NM5tAXX1AIxZpU2CWgSssFVBdiAM7sjGTlwig9Q2JduWRPqXQM0KMQ=s1600"
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
         <div>
-          <img src={"https://lh3.googleusercontent.com/drive-viewer/AFGJ81qxhQEstBs-WqKzQaiTU48lrL5nTL3fLDkKSz53NM5tAXX1AIxZpU2CWgSssFVBdiAM7sjGTlwig9Q2JduWRPqXQM0KMQ=s1600"} alt=""/>
+          <img src={images[0]} alt=""/>
         </div>
       </WhiteBox>
       <ProductInfoBox>
