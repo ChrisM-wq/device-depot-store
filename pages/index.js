@@ -3,10 +3,13 @@ import Featured from "@/components/Featured";
 import { Product } from "@/models/Product";
 import { mongooseConnect } from "@/lib/mongoose";
 import NewProducts from "@/components/NewProducts";
+import Slider from "@/components/Slider";
+
 
 export default function HomePage({ featuredProduct, newProducts }) {
   return (
     <div>
+      <Slider />
       <Header />
       <Featured product={featuredProduct} />
       <NewProducts products={newProducts} />
