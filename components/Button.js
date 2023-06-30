@@ -21,6 +21,13 @@ const StyledButton = styled.button`
         color: #fff;
         border: 1px solid #fff;
     `}
+    ${props => props.black && css`
+        background: #26282a;
+        color: #fff;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    `}
     ${props => props.primary && css`
         background-color: #7315e5;
         color: #fff;
