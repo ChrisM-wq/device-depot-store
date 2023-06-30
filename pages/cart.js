@@ -157,7 +157,7 @@ export default function CartPage() {
                     <tr key={product._id}>
                       <ProductInfoCell>
                         <ProductImageBox>
-                          {/* <img src={product.images[0]} alt=""/> */}
+                          <img src={product?.images[0]} alt=""/>
                         </ProductImageBox>
                         {product.title}
                       </ProductInfoCell>
@@ -219,8 +219,15 @@ export default function CartPage() {
                      value={country}
                      name="country"
                      onChange={ev => setCountry(ev.target.value)}/>
-              <Button black block
-                      onClick={goToPayment}>
+                <input 
+                    type="hidden" 
+                    name="products"
+                    value={cartProducts.join(',')}
+                />
+              <Button 
+                black 
+                block
+                onClick={goToPayment}>
                 Continue to payment
               </Button>
             </Box>
