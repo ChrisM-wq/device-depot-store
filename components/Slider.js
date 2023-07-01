@@ -11,6 +11,9 @@ const StyledBar = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
 `;
 
 const StyledSlide = styled.div`
