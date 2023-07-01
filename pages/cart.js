@@ -67,72 +67,79 @@ const CityHolder = styled.div`
 `;
 
 export default function CartPage() {
-  const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
-  const [products,setProducts] = useState([]);
-  const [name,setName] = useState('');
-  const [email,setEmail] = useState('');
-  const [city,setCity] = useState('');
-  const [postalCode,setPostalCode] = useState('');
-  const [streetAddress,setStreetAddress] = useState('');
-  const [country,setCountry] = useState('');
-  const [isSuccess,setIsSuccess] = useState(false);
-  useEffect(() => {
-    if (cartProducts.length > 0) {
-      axios.post('/api/cart', {ids:cartProducts})
-        .then(response => {
-          setProducts(response.data);
-        })
-    } else {
-      setProducts([]);
-    }
-  }, [cartProducts]);
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    if (window?.location.href.includes('success')) {
-      setIsSuccess(true);
-      clearCart();
-    }
-  }, []);
-  function moreOfThisProduct(id) {
-    addProduct(id);
-  }
-  function lessOfThisProduct(id) {
-    removeProduct(id);
-  }
-  async function goToPayment() {
-    const response = await axios.post('/api/checkout', {
-      name,email,city,postalCode,streetAddress,country,
-      cartProducts,
-    });
-    if (response.data.url) {
-      window.location = response.data.url;
-    }
-  }
-  let total = 0;
-  for (const productId of cartProducts) {
-    const price = products.find(p => p._id === productId)?.price || 0;
-    total += price;
-  }
 
- 
+    const {cartProducts,addProduct,removeProduct,clearCart} = useContext(CartContext);
+    const [products,setProducts] = useState([]);
+    const [name,setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [city,setCity] = useState('');
+    const [postalCode,setPostalCode] = useState('');
+    const [streetAddress,setStreetAddress] = useState('');
+    const [country,setCountry] = useState('');
+    const [isSuccess,setIsSuccess] = useState(false);
 
-  if (isSuccess) {
-    return (
-      <>
-        <Header />
-        <Center>
-          <ColumnsWrapper>
-            <Box>
-              <h1>Thanks for your order!</h1>
-              <p>We will email you when your order will be sent.</p>
-            </Box>
-          </ColumnsWrapper>
-        </Center>
-      </>
-    );
-  }
+    useEffect(() => {
+        if (cartProducts.length > 0) {
+        axios.post('/api/cart', {ids:cartProducts})
+            .then(response => {
+            setProducts(response.data);
+            });
+        } else {
+            setProducts([]);
+        };
+    }, [cartProducts]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+        if (window?.location.href.includes('success')) {
+            setIsSuccess(true);
+            clearCart();
+        }
+    }, []);
+
+    function moreOfThisProduct(id) {
+        addProduct(id);
+    };
+
+    function lessOfThisProduct(id) {
+        removeProduct(id);
+    };
+
+    async function goToPayment() {
+        const response = await axios.post('/api/checkout', {
+            name, email, city,
+            postalCode, streetAddress,
+            country, cartProducts,
+        });
+        if (response.data.url) {
+            window.location = response.data.url;
+        }
+    };
+
+    let total = 0;
+    for (const productId of cartProducts) {
+        const price = products.find(p => p._id === productId)?.price || 0;
+        total += price;
+    };
+
+    if (isSuccess) {
+        return (
+        <>
+            <Header />
+            <Center>
+                <ColumnsWrapper>
+                    <Box>
+                        <h1>Thanks for your order!</h1>
+                        <p>We will email you when your order will be sent.</p>
+                    </Box>
+                </ColumnsWrapper>
+            </Center>
+        </>
+        );
+    }
+
   return (
     <>
       <Header />
