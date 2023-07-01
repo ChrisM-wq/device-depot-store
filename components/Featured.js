@@ -28,6 +28,10 @@ const Wrapper = styled.div`
     grid-template-columns: 1.1fr 0.9fr;
     gap: 40px;
     align-items: center;
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
 `;
 
 const StyledImage = styled(Image)`
