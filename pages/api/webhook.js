@@ -4,10 +4,10 @@ import { Order } from "@/models/Order";
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
-const endpointSecret = "whsec_634d3142fd2755bd61adaef74ce0504bd2044848c8aac301ffdb56339a0ca78d";
+const endpointSecret = "whsec_92fcfd574f539b175018e7d64bf05e84bb7afe14ef6ce067cdb9a9dca3448b27";
 
 export default async function handler(req,res) {
-
+    
     await mongooseConnect();
 
     const sig = req.headers['stripe-signature'];
@@ -36,11 +36,12 @@ export default async function handler(req,res) {
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
+  
     res.status(200).send('ok');
 };
 
 export const config = {
     api: { 
-        bodyParser:false, 
+        bodyParser: false, 
     }
 };
