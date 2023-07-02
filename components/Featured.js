@@ -15,19 +15,36 @@ const Bg = styled.div`
 const Title = styled.h1`
     margin: 0;
     font-weight: normal;
-    font-size: 3rem;
+    font-size: 1.5rem;
+    @media screen and (min-width: 768px) {
+        font-size: 3rem;
+    }
 `;
 
 const Desc = styled.p`
     color: #bbb;
-    font-size: .9rem;
+    font-size: .8rem;
+    @media screen and (min-width: 768px) {
+        font-size: .9rem;
+    }
 `;
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
-    align-items: center;
+    @media screen and (max-width: 768px) {
+        
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+        display: flex;
+        flex-direction: column;
+    div:nth-child(1) {
+        order: 2;
+    }
+}
 `;
 
 const StyledImage = styled(Image)`
