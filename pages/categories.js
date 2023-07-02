@@ -4,18 +4,43 @@ import ProductBox from "@/components/ProductBox";
 import Title from "@/components/Title";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
+import Link from "next/link";
 import styled from "styled-components";
 
 const CategoryGrid = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
     @media screen and (min-width: 768px) {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 `;
 
+const CategoryTitle = styled.div`
+    display: flex;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    align-items: center;
+    gap: 1em;
+    a {
+        color: #26282a;
+    }
+`;
 
+const CategoryWrapper = styled.div`
+    margin-bottom: 40px;
+`;
+
+const ShowAllSquare = styled(Link)`
+    background-color: #ddd;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius:  10px;
+    color: #26282a;
+    text-decoration: none;
+`;
 
 export default function Categories({ 
     mainCategories, 
@@ -28,10 +53,17 @@ export default function Categories({
                 <Title>Categories</Title>
                 {mainCategories.map((category) => (
                     <div>
-                        <h2>{category.name}</h2>
+                        <CategoryTitle>
+                            <h2>{category.name}</h2>
+                            <Link href={'/category/'+category._id}>Show all</Link>
+                        </CategoryTitle>
+                        
                         <CategoryGrid>{categoriesProducts[category._id].map(p => (
                             <ProductBox {...p} />
                         ))}
+                        <ShowAllSquare href={'/category/'+category._id}>
+                            Show all &rarr;
+                        </ShowAllSquare>
                         </CategoryGrid>
                     </div>
                 ))}
