@@ -18,12 +18,17 @@ const CategoryGrid = styled.div`
 
 const CategoryTitle = styled.div`
     display: flex;
-    margin-top: 40px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 0;
     align-items: center;
     gap: 1em;
     a {
         color: #26282a;
+        display: inline-block;
+    }
+    h2{
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 `;
 
