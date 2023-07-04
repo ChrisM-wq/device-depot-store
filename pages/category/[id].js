@@ -1,6 +1,7 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductsGrid from "@/components/ProductsGrid";
+import Spinner from "@/components/Spinner";
 import Title from "@/components/Title";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
@@ -39,17 +40,28 @@ const Filter = styled.div`
     }
 `;
 
-export default function CategoryPage({category, subCategories, products: originalProducts}) {
+export default function CategoryPage({
+    category, 
+    subCategories, 
+    products: originalProducts
+}) {
 
+    // Default values
+    const defaultSort = '_id-desc';
+    const defaultFilterValues = category.properties
+        .map(p => ({name: p.name, value: 'all'}));
+
+
+    // States
     const [products, setProducts] = useState(originalProducts);
+    const [filtersValues, setFiltersValues] = useState(defaultFilterValues);
+    const [sort, setSort] = useState(defaultSort);
+    const [loadingProducts, setLoadingProducts] = useState(false);
+    const [filtersChanged, setFiltersChanged] = useState(false);
 
-    const [filtersValues, setFiltersValues] = useState(
-        category.properties.map(p => ({name: p.name, value: 'all'}))
-    );
-
-    const [sort, setSort] = useState('_id-desc');
-
+    // Handle Filter Change
     function handlerFilterChange( filterName, filterValue ) {
+        setFiltersChanged(true);
         setFiltersValues(prev => {
             return prev.map(p => ({
                 name: p.name,
@@ -57,9 +69,17 @@ export default function CategoryPage({category, subCategories, products: origina
             }));
         });
     };
-    
+
+    // Triggers - sort & filter values & filtersChanged
+    // Updates products - axios request
+    // Adds loading spinner
     useEffect(() => {
-        
+
+        if (!filtersChanged) {
+            return;
+        }
+
+        setLoadingProducts(true);
         const catIds = [category._id, ...(subCategories?.map(c => c._id)) || []];
         
         const params = new URLSearchParams;
@@ -75,9 +95,10 @@ export default function CategoryPage({category, subCategories, products: origina
 
         axios.get(url).then(res => {
             setProducts(res.data);
+            setLoadingProducts(false);
         });
 
-    }, [filtersValues, sort]);
+    }, [filtersValues, sort, filtersChanged]);
 
 
     return (
@@ -102,7 +123,12 @@ export default function CategoryPage({category, subCategories, products: origina
                   ))}
                   <Filter>
                     <span>Sort:</span>
-                    <select value={sort} onChange={event => setSort(event.target.value)}>
+                    <select 
+                        value={sort} 
+                        onChange={event => {
+                            setSort(event.target.value);
+                            setFiltersChanged(true);
+                        }}>
                         <option value="price-asc">price, lowest first</option>
                         <option value="price-desc">price, highest first</option>
                         <option value="_id-desc">Newest first</option>
@@ -111,7 +137,13 @@ export default function CategoryPage({category, subCategories, products: origina
                   </Filter>
                   </FiltersWrapper>
                 </CategoryHeader>
-                <ProductsGrid products={products} />
+                {loadingProducts && (
+                    <Spinner fullWidth />
+                )}
+                {!loadingProducts && 
+                    <ProductsGrid products={products} />
+                }
+                
             </Center>
         </>
     )
