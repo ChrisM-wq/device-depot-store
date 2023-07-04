@@ -57,6 +57,7 @@ export default function CategoryPage({category, subCategories, products: origina
     };
     
     useEffect(() => {
+        
         const catIds = [category._id, ...(subCategories?.map(c => c._id)) || []];
         
         const params = new URLSearchParams;
@@ -69,7 +70,7 @@ export default function CategoryPage({category, subCategories, products: origina
         const url = '/api/products?' + params.toString();
 
         axios.get(url).then(res => {
-            console.log(res.data);
+            setProducts(res.data);
         });
 
     }, [filtersValues]);

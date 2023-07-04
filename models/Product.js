@@ -17,7 +17,9 @@ const ProductSchema = new Schema({
     images: {
         type: Array,
     },
-    properties: {type:Object},
+    properties: {
+        type:Object,
+    },
 });
 
 export const Product = models?.Product || model('Product', ProductSchema)

@@ -11,9 +11,11 @@ export default async function handle(req, res) {
         category: categories.split(','),
     };
 
-    if (Object.keys(filters) > 0) {
-        productsQuery.properties = filters;
-    }
+    if (Object.keys(filters).length > 0) {
+        Object.keys(filters).forEach(filterName => {
+            productsQuery['properties.'+filterName] = filters[filterName];
+        });
+    };
 
     console.log(productsQuery);
     
