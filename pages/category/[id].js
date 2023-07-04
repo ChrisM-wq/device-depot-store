@@ -5,7 +5,8 @@ import Title from "@/components/Title";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CategoryHeader = styled.div`
@@ -38,7 +39,9 @@ const Filter = styled.div`
     }
 `;
 
-export default function CategoryPage({category, products}) {
+export default function CategoryPage({category, subCategories, products: originalProducts}) {
+
+    const [products, setProducts] = useState(originalProducts);
 
     const [filtersValues, setFiltersValues] = useState(
         category.properties.map(p => ({name: p.name, value: 'all'}))
@@ -52,7 +55,25 @@ export default function CategoryPage({category, products}) {
             }));
         });
     };
+    
+    useEffect(() => {
+        const catIds = [category._id, ...(subCategories?.map(c => c._id)) || []];
         
+        const params = new URLSearchParams;
+        params.set('categories', catIds.join(','));
+        filtersValues.forEach(f => {
+            if (f.value !== 'all') {
+                params.set(f.name, f.value);
+            }
+        });
+        const url = '/api/products?' + params.toString();
+
+        axios.get(url).then(res => {
+            console.log(res.data);
+        });
+
+    }, [filtersValues]);
+
     return (
         <>
             <Header />
@@ -88,12 +109,13 @@ export async function getServerSideProps(context) {
     const category = await Category.findById(id);
     const subCategories = await Category.find({ parent: category._id });
     const catIds = [category._id, ...subCategories.map(c => c._id)];
-    const products = await Product.find({category: catIds})
+    const products = await Product.find({category: catIds});
 
     return {
       props: {
         category: JSON.parse(JSON.stringify(category)),
+        subCategories: JSON.parse(JSON.stringify(subCategories)),
         products: JSON.parse(JSON.stringify(products)),
       }
-    }
-  }
+    };
+  };
