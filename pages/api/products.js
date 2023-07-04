@@ -5,7 +5,9 @@ export default async function handle(req, res) {
 
     await mongooseConnect();
 
-    const { categories, ...filters } = req.query;
+    const { categories, sort, ...filters } = req.query;
+
+    const [sortField, sortOrder] = sort.split('-');
 
     const productsQuery = { 
         category: categories.split(','),
@@ -17,8 +19,14 @@ export default async function handle(req, res) {
         });
     };
 
-    console.log(productsQuery);
     
-    res.json(await Product.find(productsQuery));
+    
+    res.json(await Product.find(
+        productsQuery, 
+        null, 
+        { sort: {
+            [sortField]: sortOrder === 'asc' ? 1 : -1
+        }}
+    ));
 
 };

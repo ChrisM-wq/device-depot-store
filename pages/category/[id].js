@@ -47,6 +47,8 @@ export default function CategoryPage({category, subCategories, products: origina
         category.properties.map(p => ({name: p.name, value: 'all'}))
     );
 
+    const [sort, setSort] = useState('_id-desc');
+
     function handlerFilterChange( filterName, filterValue ) {
         setFiltersValues(prev => {
             return prev.map(p => ({
@@ -62,6 +64,8 @@ export default function CategoryPage({category, subCategories, products: origina
         
         const params = new URLSearchParams;
         params.set('categories', catIds.join(','));
+        params.set('sort', sort);
+
         filtersValues.forEach(f => {
             if (f.value !== 'all') {
                 params.set(f.name, f.value);
@@ -73,7 +77,8 @@ export default function CategoryPage({category, subCategories, products: origina
             setProducts(res.data);
         });
 
-    }, [filtersValues]);
+    }, [filtersValues, sort]);
+
 
     return (
         <>
@@ -95,6 +100,15 @@ export default function CategoryPage({category, subCategories, products: origina
                       </select>
                     </Filter>
                   ))}
+                  <Filter>
+                    <span>Sort:</span>
+                    <select value={sort} onChange={event => setSort(event.target.value)}>
+                        <option value="price-asc">price, lowest first</option>
+                        <option value="price-desc">price, highest first</option>
+                        <option value="_id-desc">Newest first</option>
+                        <option value="_id-asc">Oldest first</option>
+                    </select>
+                  </Filter>
                   </FiltersWrapper>
                 </CategoryHeader>
                 <ProductsGrid products={products} />
