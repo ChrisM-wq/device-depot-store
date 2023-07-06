@@ -31,6 +31,11 @@ const StyledButton = styled.button`
     ${props => props.primary && css`
         background-color: #7315e5;
         color: #fff;
+        &:hover {
+            outline: 2px #7315e5 solid;
+            color: #7315e5;
+            background-color: transparent;
+        }
     `}
     ${props => props.size === 'l' && css`
         font-size: 1.2rem;
