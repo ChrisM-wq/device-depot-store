@@ -5,6 +5,7 @@ import {useContext, useState} from "react";
 import {CartContext} from "@/components/CartContext";
 import BarsIcon from "@/components/icons/Bars";
 import Image from "next/image";
+import SearchIcon from "./icons/SearchIcon";
 
 const StyledHeader = styled.header`
     background-color: #26282a;
@@ -13,9 +14,9 @@ const StyledHeader = styled.header`
     top: 0;
 `;
 const Wrapper = styled.div`
-  display: flex;
-  gap: 2em;
-  justify-content: space-between;
+    display: flex;
+    gap: 2em;
+    justify-content: space-between;
 `;
 const StyledNav = styled.nav`
   ${props => props.mobileNavActive ? `
@@ -46,10 +47,14 @@ const StyledNav = styled.nav`
 
 `;
 const NavLink = styled(Link)`
-  display: block;
+  display: flex;
   color:#aaa;
   text-decoration:none;
   padding: 10px 0;
+  min-width: 30px;
+  svg {
+    height: 20px;
+  }
   @media screen and (min-width: 768px) {
     padding:0;
   }
@@ -89,6 +94,14 @@ const MobileWrapper = styled.div`
         flex-direction: column;
         align-items: flex-start;
     }
+
+`;
+
+const MobileSearchWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 30px;
 `;
 
 export default function Header() {
@@ -121,10 +134,18 @@ export default function Header() {
             
           </StyledNav>
             </MobileWrapper>
-        
-          <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
-            <BarsIcon />
-          </NavButton>
+
+            <MobileSearchWrapper>
+                <NavLink href={'/search'}>
+                    <SearchIcon />
+                </NavLink>
+
+                <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
+                    <BarsIcon />
+                </NavButton>
+            </MobileSearchWrapper>
+            
+
         </Wrapper>
       </Center>
     </StyledHeader>
