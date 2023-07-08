@@ -69,23 +69,23 @@ export default function AccountPage() {
     setAddressLoaded(false);
     setWishlistLoaded(false);
     setOrderLoaded(false);
-    axios.get('/api/address').then(response => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setCity(response.data.city);
-      setPostalCode(response.data.postalCode);
-      setStreetAddress(response.data.streetAddress);
-      setCountry(response.data.country);
-      setAddressLoaded(true);
-    });
+    // axios.get('/api/address').then(response => {
+    //   setName(response.data.name);
+    //   setEmail(response.data.email);
+    //   setCity(response.data.city);
+    //   setPostalCode(response.data.postalCode);
+    //   setStreetAddress(response.data.streetAddress);
+    //   setCountry(response.data.country);
+    //   setAddressLoaded(true);
+    // });
     axios.get('/api/wishlist').then(response => {
       setWishedProducts(response.data.map(wp => wp.product));
       setWishlistLoaded(true);
     });
-    axios.get('/api/orders').then(response => {
-      setOrders(response.data);
-      setOrderLoaded(true);
-    });
+    // axios.get('/api/orders').then(response => {
+    //   setOrders(response.data);
+    //   setOrderLoaded(true);
+    // });
   }, [session]);
   function productRemovedFromWishlist(idToRemove) {
     setWishedProducts(products => {
