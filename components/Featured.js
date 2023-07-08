@@ -5,7 +5,7 @@ import Button from './Button';
 import Link from "next/link";
 import {useContext} from "react";
 import {CartContext} from "@/components/CartContext";
-
+import {RevealWrapper} from "next-reveal";
 const Bg = styled.div`
     background-color: #26282a;
     color: #fff;
@@ -81,8 +81,12 @@ export default function Featured({ product }) {
                 <Wrapper>
                     <Column>
                     <div>
+                    <RevealWrapper rotate={{x:  12,y:40,z:0}} origin='left' delay={200} duration={800} distance='500px' viewOffset={{top:  25,  right:0,  bottom:  10,  left:5}}>
                         <Title>{product?.title}</Title>
+                    </RevealWrapper>
+                    <RevealWrapper origin='left' delay={600} duration={800} distance='500px'>
                         <Desc>{product?.description}</Desc>
+                    </RevealWrapper>
                         <ButtonsWrapper>
                             <Link href={url}>
                                 <Button white outline size="l">Read more</Button>
@@ -99,6 +103,7 @@ export default function Featured({ product }) {
                         </div>
                     </Column>
                     <Column>
+                    <RevealWrapper origin='right' delay={600} duration={800} distance='500px'>
                     <FixedWidthDiv >
                         <StyledImage 
                             src={'/../public/macbook.png'}
@@ -109,6 +114,7 @@ export default function Featured({ product }) {
                             layout="responsive"
                         />
                     </FixedWidthDiv>
+                    </RevealWrapper>
                     
                     </Column>
                 </Wrapper>
